@@ -50,6 +50,7 @@
             VideoCapture capture = new VideoCapture(0);
             capture.Grab();
             int count = 0, check = 0;
+            string res = "hello";
             while (capture.IsOpened())
             {
                 capture.Read(image);
@@ -57,19 +58,20 @@
                 Cv2.CvtColor(image, temp, ColorConversionCodes.RGB2GRAY);
 
                 count++;
-                Point p1 = new Point(150, 150);
+                Point p1 = new Point(100, 100);
                 Rect rect = new Rect(p1, new Size(200, 200));
                 Scalar c1 = new Scalar(0, 0, 100);
 
                 Console.WriteLine(count);
                 Cv2.Rectangle(image, rect, c1);
-                Cv2.ImShow("Frame1", image);
+                
                 Mat tr = new Mat(temp, rect);
-                Cv2.ImShow("Frame2", tr);
-                tr.SaveImage("Assets\\test.jpg");
+                
+                
 
                 if(count==100)
                 {
+                    tr.SaveImage("Assets\\test.jpg");
                     new Thread(() => {
 
                         using (var session = new TFSession(graph))
@@ -95,14 +97,29 @@
                         stopwatch.Stop();
                         Console.WriteLine($"{TestImageFilePath} = {labels[bestIdx]} ({best * 100.0}%)");
                         Console.WriteLine($"Total time: {stopwatch.Elapsed}");
+                        res = labels[bestIdx];
                         Console.ReadKey();
-
+                        
+                        Console.WriteLine(labels[bestIdx]);
                     }).Start();
-
                     count = 0;
                 }
-               
 
+                   MatOfByte3 mat3 = new MatOfByte3(image); // cv::Mat_<cv::Vec3b>
+                    var indexer = mat3.GetIndexer();
+                    for (int x = 100; x < 250; x++)
+                    {
+                        for (int y = 40; y < 90; y++)
+                        {
+                            Vec3b color = new Vec3b(161,101,0);
+
+                            indexer[y,x] = color;
+                        }
+                    }
+                    Cv2.PutText(image, res, new Point(150, 80), HersheyFonts.HersheyPlain, 2, Scalar.White);
+               // Cv2.PutText(image, res, new Point(30, 30), HersheyFonts.HersheySimplex, 3, new Scalar(0, 0, 100));
+                Cv2.ImShow("Frame1", image);
+                Cv2.ImShow("Frame2", tr);
                 Cv2.WaitKey(1);
             }
         
