@@ -49,7 +49,7 @@
             Mat image = new Mat();
             VideoCapture capture = new VideoCapture(0);
             capture.Grab();
-            int count = 0, check = 0;
+            int count = 0;
             string res = "hello";
             while (capture.IsOpened())
             {
@@ -102,7 +102,7 @@
                         
                         Console.WriteLine(labels[bestIdx]);
                     }).Start();
-                    count = 0;
+                    count = 50;
                 }
 
                    MatOfByte3 mat3 = new MatOfByte3(image); // cv::Mat_<cv::Vec3b>
@@ -117,9 +117,68 @@
                         }
                     }
                     Cv2.PutText(image, res, new Point(150, 80), HersheyFonts.HersheyPlain, 2, Scalar.White);
-               // Cv2.PutText(image, res, new Point(30, 30), HersheyFonts.HersheySimplex, 3, new Scalar(0, 0, 100));
-                Cv2.ImShow("Frame1", image);
-                Cv2.ImShow("Frame2", tr);
+                
+                Cv2.ImShow("Original", image);
+                Cv2.ImShow("Hand", tr);
+                Mat sign = new Mat();
+                sign=Cv2.ImRead("Assets\\India_SL.jpg");
+
+                //Identifying sign in chart
+                if (res == "A")
+                    Cv2.Rectangle(sign, new Rect(new Point(0, 0), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if(res=="B")
+                    Cv2.Rectangle(sign, new Rect(new Point(75,0), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "C")
+                    Cv2.Rectangle(sign, new Rect(new Point(75*2, 0), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "D")
+                    Cv2.Rectangle(sign, new Rect(new Point(75*3, 0), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "E")
+                    Cv2.Rectangle(sign, new Rect(new Point(75*4, 0), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "F")
+                    Cv2.Rectangle(sign, new Rect(new Point(75*5, 0), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "G")
+                    Cv2.Rectangle(sign, new Rect(new Point(75*6, 0), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "H")
+                    Cv2.Rectangle(sign, new Rect(new Point(0, 75), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "I")
+                    Cv2.Rectangle(sign, new Rect(new Point(75, 75), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "J")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 2, 75), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "K")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 3, 75), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "L")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 4, 75), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "M")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 5, 75), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "N")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 6, 75), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "O")
+                    Cv2.Rectangle(sign, new Rect(new Point(0, 75*2), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "P")
+                    Cv2.Rectangle(sign, new Rect(new Point(75, 75 * 2), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "Q")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 2, 75 * 2), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "R")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 3, 75 * 2), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "S")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 4, 75 * 2), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "T")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 5, 75 * 2), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "U")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 6, 75 * 2), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "V")
+                    Cv2.Rectangle(sign, new Rect(new Point(75, 75 * 3), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "W")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 2, 75 * 3), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "X")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 3, 75 * 3), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "Y")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 4, 75 * 3), new Size(75, 75)), new Scalar(0, 0, 100));
+                else if (res == "Z")
+                    Cv2.Rectangle(sign, new Rect(new Point(75 * 5, 75 * 3), new Size(75, 75)), new Scalar(0, 0, 100));
+
+
+                Cv2.ImShow("Signs", sign);
                 Cv2.WaitKey(1);
             }
         
